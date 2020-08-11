@@ -107,7 +107,8 @@ class Graph:
         # Add the starting vertex to the visited set
         visited.add(starting_vertex)
 
-        print("Starting vertex dft_r: ", starting_vertex)
+        # This will show the starting vertex during each recursive call
+        print("Start dft_r: ", starting_vertex)
 
         # Tap into the starting vertex's neighbors
         for neighbor in self.vertices[starting_vertex]:
@@ -165,7 +166,7 @@ class Graph:
         """
         pass  # TODO
 
-    def dfs_recursive(self, starting_vertex, destination_vertex):
+    def dfs_recursive(self, starting_vertex, destination_vertex, visited=None, path=None):
         """
         Return a list containing a path from
         starting_vertex to destination_vertex in
@@ -173,7 +174,47 @@ class Graph:
 
         This should be done using recursion.
         """
-        pass  # TODO
+        # Check if visited is None
+        if visited is None:
+            # If so, create a set for it
+            visited = set()
+
+        # Check if path is None
+        if path is None:
+            # If so, initialize a blank list for it
+            path = []
+            
+        # Add the starting vertex to the visited set
+        visited.add(starting_vertex)
+
+        # Copy path
+        path = path + [starting_vertex]
+
+        '''
+        The line above is doing this:
+
+        path = list(path)  # makes a copy, new list with current path data
+        path.append(starting_vertex)
+        '''
+
+        # Check if we're at the destination (base case)
+        if starting_vertex == destination_vertex:
+            # If so, return the path
+            return path
+
+        # Tap into the starting vertex's neighbors
+        for neighbor in self.get_neighbors(starting_vertex):
+            # If the neighbor hasn't been visited
+            if neighbor not in visited:
+                # Recursively search through the neighbors
+                new_path = self.dfs_recursive(neighbor, destination_vertex, visited, path)
+                # If the new path exists
+                if new_path is not None:
+                    # Return the new path
+                    return new_path
+
+        # If we didn't find the path we're looking for, return None
+        return None
 
 if __name__ == '__main__':
     graph = Graph()  # Instantiate your graph
