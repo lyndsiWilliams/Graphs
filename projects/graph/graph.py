@@ -41,7 +41,28 @@ class Graph:
         Print each vertex in breadth-first order
         beginning from starting_vertex.
         """
-        pass  # TODO
+        # Create an empty queue
+        q = Queue()
+
+        # Add the parameter ID as the starting vertex ID
+        q.enqueue(starting_vertex)
+
+        # Create a set for visited vertices
+        visited = set()
+
+        # While the queue is not empty
+        while q.size() > 0:
+            # Dequeue a vertex
+            vertex = q.dequeue()
+
+            # If the vertex hasn't been visited...
+            if vertex not in visited:
+                # Visit it! By adding it to the visited set
+                visited.add(vertex)
+
+                # Add the current vertex's neighbors to the queue
+                for neighbor in self.get_neighbors(vertex):
+                    q.enqueue(neighbor)
 
     def dft(self, starting_vertex):
         """
@@ -65,7 +86,40 @@ class Graph:
         starting_vertex to destination_vertex in
         breath-first order.
         """
-        pass  # TODO
+        # Create an empty queue and enqueue A PATH TO the starting vertex ID
+        # Create an empty queue
+        q = Queue()
+
+        # Add the parameter ID as the starting vertex ID
+        q.enqueue([starting_vertex])
+
+        # Create a set for visited vertices
+        visited = set()
+
+        # While the queue is not empty...
+        while q.size() > 0:
+            # Dequeue the first PATH
+            vertex = q.dequeue()
+            # Grab the last vertex from the PATH
+            last_vertex = vertex[-1]
+
+            # If that vertex has not been visited...
+            if last_vertex not in visited:
+                # CHECK IF IT'S THE TARGET
+                if last_vertex == destination_vertex:
+                    # IF SO, RETURN PATH
+                    return vertex
+
+            # Mark it as visited...
+            visited.add(last_vertex)
+
+            # Then add A PATH TO its neighbors to the back of the queue
+            for neighbor in self.get_neighbors(last_vertex):
+                # Add the current neighbor to the path
+                path = vertex + [neighbor]
+                # Append the neighbor to the back of the path
+                q.enqueue(path)
+
 
     def dfs(self, starting_vertex, destination_vertex):
         """
@@ -136,8 +190,8 @@ if __name__ == '__main__':
         1, 2, 4, 7, 6, 3, 5
         1, 2, 4, 6, 3, 5, 7
     '''
-    graph.dft(1)
-    graph.dft_recursive(1)
+    # graph.dft(1)
+    # graph.dft_recursive(1)
 
     '''
     Valid BFS path:
@@ -150,5 +204,5 @@ if __name__ == '__main__':
         [1, 2, 4, 6]
         [1, 2, 4, 7, 6]
     '''
-    print(graph.dfs(1, 6))
-    print(graph.dfs_recursive(1, 6))
+    # print(graph.dfs(1, 6))
+    # print(graph.dfs_recursive(1, 6))
