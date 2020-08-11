@@ -69,16 +69,52 @@ class Graph:
         Print each vertex in depth-first order
         beginning from starting_vertex.
         """
-        pass  # TODO
+        # Create an empty stack
+        s = Stack()
 
-    def dft_recursive(self, starting_vertex):
+        # Add the parameter ID as the starting vertex ID
+        s.push(starting_vertex)
+
+        # Create a set for visited vertices
+        visited = set()
+
+        # While the queue is not empty
+        while s.size() > 0:
+            # Dequeue a vertex
+            vertex = s.pop()
+
+            # If the vertex hasn't been visited...
+            if vertex not in visited:
+                # Visit it! By adding it to the visited set
+                visited.add(vertex)
+
+                # Add the current vertex's neighbors to the queue
+                for neighbor in self.get_neighbors(vertex):
+                    s.push(neighbor)
+
+    def dft_recursive(self, starting_vertex, visited=None):
         """
         Print each vertex in depth-first order
         beginning from starting_vertex.
 
         This should be done using recursion.
         """
-        pass  # TODO
+        # Check if visited is None
+        if visited is None:
+            # If so, create a set for it
+            visited = set()
+
+        # Add the starting vertex to the visited set
+        visited.add(starting_vertex)
+
+        print("Starting vertex dft_r: ", starting_vertex)
+
+        # Tap into the starting vertex's neighbors
+        for neighbor in self.vertices[starting_vertex]:
+            # If the neighbor hasn't been visited
+            if neighbor not in visited:
+                # Recursively traverse through the neighbors
+                self.dft_recursive(neighbor, visited)
 
     def bfs(self, starting_vertex, destination_vertex):
         """
@@ -190,8 +226,8 @@ if __name__ == '__main__':
         1, 2, 4, 7, 6, 3, 5
         1, 2, 4, 6, 3, 5, 7
     '''
-    # graph.dft(1)
-    # graph.dft_recursive(1)
+    graph.dft(1)
+    graph.dft_recursive(1)
 
     '''
     Valid BFS path:
@@ -204,5 +240,5 @@ if __name__ == '__main__':
         [1, 2, 4, 6]
         [1, 2, 4, 7, 6]
     '''
-    # print(graph.dfs(1, 6))
-    # print(graph.dfs_recursive(1, 6))
+    print(graph.dfs(1, 6))
+    print(graph.dfs_recursive(1, 6))
