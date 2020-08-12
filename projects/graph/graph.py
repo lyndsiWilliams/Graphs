@@ -59,6 +59,8 @@ class Graph:
             if vertex not in visited:
                 # Visit it! By adding it to the visited set
                 visited.add(vertex)
+                # For the test
+                print(vertex)
 
                 # Add the current vertex's neighbors to the queue
                 for neighbor in self.get_neighbors(vertex):
@@ -80,13 +82,15 @@ class Graph:
 
         # While the queue is not empty
         while s.size() > 0:
-            # Dequeue a vertex
+            # Pop a vertex
             vertex = s.pop()
 
             # If the vertex hasn't been visited...
             if vertex not in visited:
                 # Visit it! By adding it to the visited set
                 visited.add(vertex)
+                # For the test
+                print(vertex)
 
                 # Add the current vertex's neighbors to the queue
                 for neighbor in self.get_neighbors(vertex):
@@ -106,9 +110,11 @@ class Graph:
 
         # Add the starting vertex to the visited set
         visited.add(starting_vertex)
+        # For the test
+        print(starting_vertex)
 
         # This will show the starting vertex during each recursive call
-        print("Start dft_r: ", starting_vertex)
+        # print("Start dft_r: ", starting_vertex)
 
         # Tap into the starting vertex's neighbors
         for neighbor in self.vertices[starting_vertex]:
@@ -135,16 +141,16 @@ class Graph:
         # While the queue is not empty...
         while q.size() > 0:
             # Dequeue the first PATH
-            vertex = q.dequeue()
+            path = q.dequeue()
             # Grab the last vertex from the PATH
-            last_vertex = vertex[-1]
+            last_vertex = path[-1]
 
             # If that vertex has not been visited...
             if last_vertex not in visited:
                 # CHECK IF IT'S THE TARGET
                 if last_vertex == destination_vertex:
                     # IF SO, RETURN PATH
-                    return vertex
+                    return path
 
             # Mark it as visited...
             visited.add(last_vertex)
@@ -152,9 +158,9 @@ class Graph:
             # Then add A PATH TO its neighbors to the back of the queue
             for neighbor in self.get_neighbors(last_vertex):
                 # Add the current neighbor to the path
-                path = vertex + [neighbor]
+                new_path = path + [neighbor]
                 # Append the neighbor to the back of the path
-                q.enqueue(path)
+                q.enqueue(new_path)
 
 
     def dfs(self, starting_vertex, destination_vertex):
@@ -175,16 +181,16 @@ class Graph:
         # While the stack is not empty...
         while s.size() > 0:
             # Pop the first PATH
-            vertex = s.pop()
+            path = s.pop()
             # Grab the last vertex from the PATH
-            last_vertex = vertex[-1]
+            last_vertex = path[-1]
 
             # If that vertex has not been visited...
             if last_vertex not in visited:
                 # CHECK IF IT'S THE TARGET
                 if last_vertex == destination_vertex:
                     # IF SO, RETURN PATH
-                    return vertex
+                    return path
 
             # Mark it as visited...
             visited.add(last_vertex)
@@ -192,9 +198,9 @@ class Graph:
             # Then add A PATH TO its neighbors to the back of the queue
             for neighbor in self.get_neighbors(last_vertex):
                 # Add the current neighbor to the path
-                path = vertex + [neighbor]
+                new_path = path + [neighbor]
                 # Append the neighbor to the back of the path
-                s.push(path)
+                s.push(new_path)
 
     def dfs_recursive(self, starting_vertex, destination_vertex, visited=None, path=None):
         """
