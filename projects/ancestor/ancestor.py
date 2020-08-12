@@ -13,6 +13,8 @@ class Queue():
 
 
 def earliest_ancestor(ancestors, starting_node):
+    # ---------- Building the relatives dictionary ----------
+
     # Set a blank dict for the relatives
     relatives = {}
 
@@ -32,6 +34,8 @@ def earliest_ancestor(ancestors, starting_node):
     if starting_node not in relatives:
         # The child has no ancestors
         return -1
+
+    # ---------- Setting up the search ----------
 
     # Set a blank list for the paths
     paths = []
@@ -64,6 +68,8 @@ def earliest_ancestor(ancestors, starting_node):
             new_path = path[:]
             # Store it in the paths list
             paths.append(new_path)
+            
+    # ---------- Calculate the earliest ancestor ----------
 
     # Determine the max length of every possible path in paths
     max_length = max([len(path) for path in paths])
