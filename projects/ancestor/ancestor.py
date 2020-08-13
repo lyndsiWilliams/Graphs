@@ -14,19 +14,20 @@ class Queue():
 
 def earliest_ancestor(ancestors, starting_node):
     # ---------- Building the relatives dictionary ----------
+    # Do graph here instead
 
     # Set a blank dict for the relatives
     relatives = {}
 
     # Loop through the parameter ancestors
     for i in ancestors:
-        parent = i[0]
+        parent = i[0] # add vertex
         child = i[1]
 
         # If the child isn't in the relatives dict yet...
         if child not in relatives:
             # Give the child a spot with an empty list
-            relatives[child] = []
+            relatives[child] = [] # add edge
         # Add the parent to the list of relatives
         relatives[child].append(parent)
 
